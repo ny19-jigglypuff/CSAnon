@@ -1,0 +1,46 @@
+{
+  "name": "ComplainSmith",
+  "version": "1.0.0",
+  "description": "An anonymous board to ask for help, coding or otherwise.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "dev": "nodemon src/server/server.js & webpack-dev-server --open",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ny19-jigglypuff/ComplainSmith.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ny19-jigglypuff/ComplainSmith/issues"
+  },
+  "homepage": "https://github.com/ny19-jigglypuff/ComplainSmith#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.6.0",
+    "nodemon": "^2.0.4",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "pg": "^8.2.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "redis": "^3.0.2",
+    "socket.io": "^2.3.0"
+  }
+}
