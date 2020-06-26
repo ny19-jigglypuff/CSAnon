@@ -1,12 +1,12 @@
-import socketIOClient, { connect } from 'socket.io-client';
-const io = socketIOClient();
+//import socketIOClient, { connect } from 'socket.io-client';
+import React from 'react';
+import App from './components/App';
+import { render } from 'react-dom';
 
-document.getElementById('root').addEventListener('click', () => {
-  io.emit('message', 'sent a message');
-});
+//const io = socketIOClient();
 
-// fetch('/api')
-//   .then((res) => res.json())
-//   .then(console.log);
+//document.getElementById('root').addEventListener('click', () => {
+//  io.emit('message', 'sent a message');
+//});
 
-console.log('hello world');
+render(<App />, document.getElementById('root'));
