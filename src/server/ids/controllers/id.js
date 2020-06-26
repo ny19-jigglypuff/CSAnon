@@ -20,7 +20,7 @@ const getNameAndPicture = (id) => {
   // return the name and url of the picture from db
 };
 
-idsController.newID = (req, res, next) => {
+idsController.getNewID = (req, res, next) => {
   // TODO: pick a random number
   // TODO: check if number is in use
   // TODO: attach the name and url to the available id
