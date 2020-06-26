@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 
+const githubRouter = require('./github/github');
+
 // will run on port 3000 for development,
 // PORT env variable will be set and available at deployment
 const PORT = process.env.PORT || 3000;
@@ -18,10 +20,12 @@ const io = require('./ws/ws')(http);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.get('/auth', // **github authoriztion goes here**)
-// app.get('/id', // **request for available anon ids goes here**)
+app.use('/auth', githubRouter);
+// app.use('/id', // **request for available anon ids goes here**)
 
 // serves the index.html file at the root route for initial get request
-app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
+app.get('/', (req, res) =>
+  res.sendFile(path.resolve(__dirname, '../client/index.html'))
+);
 
 http.listen(PORT, () => console.log(`listening on port ${PORT}`));
