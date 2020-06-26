@@ -1,20 +1,27 @@
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
 
+// will run on port 3000 for development,
+// PORT env variable will be set and available at deployment
 const PORT = process.env.PORT || 3000;
 
-// app.get('/api', (req, res) => res.status(200).json('connected to back end'));
+// requires a locally running redis instance
+// install at https://redis.io/topics/quickstart
+const redis = require('./redis/redis')();
 
-app.use('/api', (req, res) => {});
+// starts a socket.io server, wrapped around the server
+// listening on PORT
+const io = require('./ws/ws')(http);
 
-io.on('connect', (socket) => {
-  socket.on('message', console.log);
-  socket.on('disconnect', () => console.log('user disconnected'));
-  console.log('a user connected');
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// app.get('/auth', // **github authoriztion goes here**)
+// app.get('/id', // **request for available anon ids goes here**)
+
+// serves the index.html file at the root route for initial get request
 app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
 
 http.listen(PORT, () => console.log(`listening on port ${PORT}`));
