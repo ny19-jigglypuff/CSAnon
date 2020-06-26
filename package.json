@@ -34,6 +34,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.27.0",
