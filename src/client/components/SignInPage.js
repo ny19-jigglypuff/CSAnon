@@ -41,10 +41,10 @@ function ShowAuthWindow(options)
 } 
 
 //create new oAuth popup window and monitor it
-ShowAuthWindow({
-    path: "https://accounts.google.com/o/oauth2/auth?client_id=656984324806-sr0q9vq78tlna4hvhlmcgp2bs2ut8uj8.apps.googleusercontent.com&response_type=token&redirect_uri=https%3A%2F%2Fadodson.com%2Fhello.js%2Fredirect.html&state=%7B%22client_id%22%3A%22656984324806-sr0q9vq78tlna4hvhlmcgp2bs2ut8uj8.apps.googleusercontent.com%22%2C%22network%22%3A%22google%22%2C%22display%22%3A%22popup%22%2C%22callback%22%3A%22_hellojs_2u7fxpwv%22%2C%22state%22%3A%22%22%2C%22redirect_uri%22%3A%22https%3A%2F%2Fadodson.com%2Fhello.js%2Fredirect.html%22%2C%22scope%22%3A%22basic%22%7D&scope=https://www.googleapis.com/auth/plus.me%20profile",
-    callback: function()
-    {
-        console.log('callback');
-    }
-});
+//ShowAuthWindow({
+//    path: "https://accounts.google.com/o/oauth2/auth?client_id=656984324806-sr0q9vq78tlna4hvhlmcgp2bs2ut8uj8.apps.googleusercontent.com&response_type=token&redirect_uri=https%3A%2F%2Fadodson.com%2Fhello.js%2Fredirect.html&state=%7B%22client_id%22%3A%22656984324806-sr0q9vq78tlna4hvhlmcgp2bs2ut8uj8.apps.googleusercontent.com%22%2C%22network%22%3A%22google%22%2C%22display%22%3A%22popup%22%2C%22callback%22%3A%22_hellojs_2u7fxpwv%22%2C%22state%22%3A%22%22%2C%22redirect_uri%22%3A%22https%3A%2F%2Fadodson.com%2Fhello.js%2Fredirect.html%22%2C%22scope%22%3A%22basic%22%7D&scope=https://www.googleapis.com/auth/plus.me%20profile",
+//    callback: function()
+//    {
+//        console.log('callback');
+//    }
+//});
