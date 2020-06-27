@@ -8,14 +8,19 @@ body {
 
 .mainContainer {
   display: flex;
-  height: 100vh;
+  
 }
 
 .mainContainer.mainChat {
   display: flex;
+  
 
   .sidebar {
-    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 0 0 250px;
     background-color: $dark-grey;
     color: white;
   }
@@ -24,36 +29,83 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
+    background-color: $medium-grey;
+    box-sizing: border-box;
 
     .chat {
       overflow-y: auto;
       padding: 0.5rem;
       box-sizing: border-box;
-    }
+      width: 100%;
 
-    .messageContainer {
-      display: flex;
-      align-content: flex-end;
-      p {
-        background-color: $blue;
-        border-radius: 4px;
-        padding: 0.5rem;
-        box-sizing: border-box;
+      .messageContainer {
+        display: flex;
+        align-items: center;
+        //.textContainer {
+        //  display: flex;
+        //  flex-direction: column;
+        //  align-items: flex-start;
+        //}
+        p {
+          margin: 0;
+          background-color: $blue;
+          border-radius: 4px;
+          padding: 0.5rem;
+          box-sizing: border-box;
+          color: white;
+          max-width: 80%;
+        }
+        img {
+          border-radius: 50%;
+          width: 100px;
+          height: auto;
+        }
       }
-      img {
-        width: 100px;
-        height: auto;
+      .messageContainer.self {
+        flex-direction: row-reverse;
+        align-self: flex-end;
+        //.textContainer {
+        //  align-items: flex-end;
+        //  text-align: right;
+        //}
       }
     }
 
     .inputArea {
-      width: 100%;
-      padding: 0.5rem;
-      box-sizing: border-box;
       display: flex;
       flex-direction: row;
-      
+      width: calc(100% - 1rem);
+      padding: 0.7rem;
+      box-sizing: border-box;
+      background-color: $light-grey;
+      margin: 1rem;
+      border-radius: 4px;
+      color: $very-light-grey;
+
+      input {
+        background-color: transparent;
+        color: white;
+        flex: 0 1 100%;
+        border: none;
+        font-size: 0.9rem;
+      }
+      input::placeholder {
+        color: $very-light-grey;
+      }
+      input:focus {
+        outline: none;
+      }
+      button {
+        background-color: transparent;
+        border: none;
+        color: $very-light-grey;
+      }
     }
+
+    
+
+    
   }
   
 }
