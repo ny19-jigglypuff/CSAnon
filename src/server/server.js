@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // requires a locally running redis instance
 // install at https://redis.io/topics/quickstart
-const redis = require('./redis/redis')();
+const redis = require('./redis/redis');
 
 // starts a socket.io server, wrapped around the server
 // listening on PORT

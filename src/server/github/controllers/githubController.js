@@ -33,7 +33,6 @@ githubController.callback = (req, res, next) => {
   requestToken(code).then((response) =>
     requestUser(response)
       .then(function (result) {
-        console.log(result.body.login);
         res.locals.login = result.body.login;
         return next();
       })

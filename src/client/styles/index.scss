@@ -96,11 +96,6 @@ body {
           font-size: 0.9rem;
           box-shadow: 0 1px 6px 2px rgba(54, 62, 70, 0.5), 0 1px 1px 1px rgba(54, 62, 70, 0.7);
         }
-        p::before {
-          position: absolute;
-          height: 10px;
-          width: 10px;
-        }
         span {
           margin-bottom: 5px;
           color: $very-light-grey;

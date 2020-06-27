@@ -15,8 +15,11 @@ import MainChat from './MainChat';
 const socket = io();
 
 export default function App() {
+  //Check if cookie called 'token' exists in browser
   const loggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
   return (
+    //Provide the Context to the App by wrapping it in a Provider
+    //The value prop will be available to all the child Components via the useContext hook
     <SocketContext.Provider value={socket}>
       <BrowserRouter>
         <Switch>
