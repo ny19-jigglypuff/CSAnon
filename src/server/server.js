@@ -6,6 +6,7 @@ const http = require('http').createServer(app);
 const githubRouter = require('./github/github');
 const idsRouter = require('./ids/ids');
 const messagesRouter = require('./messages/messages');
+const cookieParser = require('cookie-parser') // npm install cookie-parser
 
 // will run on port 3000 for development,
 // PORT env variable will be set and available at deployment
@@ -21,6 +22,9 @@ const io = require('./ws/ws')(http);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
+app.use(cookieParser()) // we need to add this line to have a chance to read the req.cookis.
 
 app.use('/auth', githubRouter);
 app.use('/id', idsRouter);
