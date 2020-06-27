@@ -23,9 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/auth', githubRouter);
 // app.use('/id', // **request for available anon ids goes here**)
 
+// app.get('/messages', //**respond with list of messages (last 20?)**)
+
 // serves the index.html file at the root route for initial get request
-app.get('/', (req, res) =>
-  res.sendFile(path.resolve(__dirname, '../client/index.html'))
-);
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
 
 http.listen(PORT, () => console.log(`listening on port ${PORT}`));

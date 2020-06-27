@@ -1,13 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AnonIdChoicePage from './AnonIdChoicePage';
 import MainChat from './MainChat';
 
 //loggedIn = is there access token in browser
 //if loggedIn
-  // render AnonChoiceIdPage component
+// render AnonChoiceIdPage component
 //if not loggedIn
-  // redirect to /signin
+// redirect to /signin
 
 const loggedIn = true; //temporary
 
@@ -16,23 +16,23 @@ const loggedIn = true; //temporary
 export default function App() {
   return (
     <BrowserRouter>
+      <a href='/auth/user'>Check GITHUB</a>
       <Switch>
         {/* csanon.com */}
-        <Route exact path="/">
-          {loggedIn ? <AnonIdChoicePage /> : <Redirect to="/signin" />}
+        <Route exact path='/'>
+          {loggedIn ? <AnonIdChoicePage /> : <Redirect to='/signin' />}
         </Route>
         {/* csanon.com/signin */}
-        <Route path='/signin'>
+        <Route exact path='/signin'>
           {/* show github oauth button */}
           {/* if not successful signin -> server should send back some error */}
           {/* if signin -> we set the the cookie, redirect to '/'? */}
         </Route>
         {/* csanon.com/chat */}
-        <Route path='/chat'>
+        <Route exact path='/chat'>
           <MainChat />
         </Route>
       </Switch>
     </BrowserRouter>
-
-  )
+  );
 }

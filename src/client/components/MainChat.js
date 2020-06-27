@@ -15,5 +15,11 @@ export default function MainChat() {
         <button>Send</button>
       </div>
     </div>
-  )
+  );
 }
+
+/*
+
+
+
+*/
