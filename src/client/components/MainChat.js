@@ -7,9 +7,10 @@ export default function MainChat(props) {
   const socket = useContext(SocketContext);
 
   const handleSendClick = () => {
+    console.log(props);
     const data = {
       message: inputMessageRef.current.value,
-      username: props.username,
+      username: props.location.state.username,
     };
     inputMessageRef.current.value = '';
     socket.emit('message', data);
@@ -25,10 +26,11 @@ export default function MainChat(props) {
   //TODO: add function for request more messages on scroll up
   if (messageData.length === 0) {
     fetch('/messages/all')
-    .then((res) => res.json())
-    .then((res) => {
-      setMessageData(res);
-    });
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setMessageData(res);
+      });
   }
 
   return (
