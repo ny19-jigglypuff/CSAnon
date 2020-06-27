@@ -8,10 +8,146 @@ body {
 
 .mainContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: $medium-grey;
+  height: 100vh;
+  color: white;
 }
 
-.signInPage {
+.btn, button:not([type=submit]) {
+  color: white;
+  background-color: $blue;
+  text-decoration: none;
+  padding: 1rem;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+}
 
+.mainContainer.signInPage {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContainer.anonChoice {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+  .row {
+    display: flex;
+  }
+  .btn, button {
+    margin: 0.5rem;
+  }
+}
+
+.mainContainer.mainChat {
+  display: flex;
+  height: 100vh;
+  
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 0 0 250px;
+    background-color: $dark-grey;
+    color: white;
+  }
+  .chatContainer {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: $medium-grey;
+    box-sizing: border-box;
+
+    .chat {
+      overflow-y: auto;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      width: 100%;
+
+      .messageContainer {
+        display: flex;
+        align-items: center;
+        .textContainer {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          max-width: 80%;
+        }
+        p {
+          margin: 0;
+          background-color: $blue;
+          border-radius: 4px;
+          padding: 0.5rem;
+          box-sizing: border-box;
+          color: white;
+          overflow-wrap: break-word;
+          max-width: 50vw;
+        }
+        span {
+          margin-bottom: 5px;
+          color: $very-light-grey;
+          font-size: 0.7rem;
+        }
+        img {
+          border-radius: 50%;
+          width: 100px;
+          height: auto;
+        }
+      }
+      .messageContainer.self {
+        flex-direction: row-reverse;
+        align-self: flex-end;
+        .textContainer {
+          align-items: flex-end;
+          text-align: right;
+        }
+      }
+    }
+
+    .inputArea {
+      display: flex;
+      flex-direction: row;
+      width: calc(100% - 1rem);
+      padding: 0.7rem;
+      box-sizing: border-box;
+      background-color: $light-grey;
+      margin: 1rem;
+      border-radius: 4px;
+      color: $very-light-grey;
+
+      input {
+        background-color: transparent;
+        color: white;
+        flex: 0 1 100%;
+        border: none;
+        font-size: 0.9rem;
+      }
+      input::placeholder {
+        color: $very-light-grey;
+      }
+      input:focus {
+        outline: none;
+      }
+      button {
+        background-color: transparent;
+        border: none;
+        color: $very-light-grey;
+      }
+    }
+
+    
+
+    
+  }
+  
 }

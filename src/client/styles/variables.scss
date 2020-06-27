@@ -1,1 +1,7 @@
 $font-family: "HK Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$dark-grey: #363E46;
+$medium-grey: lighten($dark-grey, 10%);
+$light-grey: lighten($dark-grey, 20%);
+$very-light-grey: lighten($dark-grey, 40%);
+$blue: #2A95EB;
+$border-radius: 4px;

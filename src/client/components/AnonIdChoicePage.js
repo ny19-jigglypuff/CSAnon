@@ -39,16 +39,19 @@ export default function AnonIdChoicePage() {
         :
         <>
           {/* TODO: add log out functionality */}
-          <button>Log out of GitHub</button>
-          <img src={anonId.userURL} />
-          <p className='name'>{anonId.username}</p>
-          <button onClick={handleRerollClick}>Reroll new ID</button>
-          <Link
-            className='btn'
-            to={{ pathname: '/chat', state: anonId }}
-            onClick={handleGoToChatClick}>
-            Go to chat
+          {/*<button>Log out of GitHub</button>*/}
+          <img src={anonId.userURL} onError={handleRerollClick} />
+          < p className='name'>{anonId.username}</p>
+          <div classname='row'>
+            <button onClick={handleRerollClick}>Reroll new ID</button>
+            <Link
+              className='btn'
+              to={{ pathname: '/chat', state: anonId }}
+              onClick={handleGoToChatClick}>
+              Go to chat
           </Link>
+          </div>
+
         </>
       }
     </div>

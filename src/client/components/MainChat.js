@@ -4,16 +4,19 @@ import SocketContext from '../context/SocketContext';
 export default function MainChat(props) {
   const [messageData, setMessageData] = useState([]);
   const inputMessageRef = useRef(null);
+  const chatRef = useRef(null);
   const socket = useContext(SocketContext);
 
-  const handleSendClick = () => {
-    console.log(props);
-    const data = {
-      message: inputMessageRef.current.value,
-      username: props.location.state.username,
-    };
-    inputMessageRef.current.value = '';
-    socket.emit('message', data);
+  const handleSendClick = (e) => {
+    e.preventDefault();
+    if (inputMessageRef.current.value.length !== 0) {
+      const data = {
+        message: inputMessageRef.current.value,
+        username: props.location.state.username,
+      };
+      inputMessageRef.current.value = '';
+      socket.emit('message', data);
+    }
   };
 
   socket.on('newMessage', (data) => {
@@ -21,45 +24,58 @@ export default function MainChat(props) {
     const newArr = [...messageData];
     newArr.push(data);
     setMessageData(newArr);
+    chatRef.current.scrollTop = chatRef.current.scrollHeight;
   });
 
   //TODO: add function for request more messages on scroll up
+  //TODO: not scrolling to bottom on initial load
   if (messageData.length === 0) {
     fetch('/messages/all')
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setMessageData(res);
-      });
+      })
+      .then(() => chatRef.current.scrollTop = chatRef.current.scrollHeight);
   }
 
   return (
     <div className='mainContainer mainChat'>
-      <img src={props.userURL} />
-      {/* TODO: add log out functionalities */}
-      <button>Log out of GitHub</button>
-      <button>Log out of Anon ID</button>
-      <p className='displayName'>Pikachu</p>
-      <div className='chat'>
-        {/* assumes most recent message is at the end of the array */}
-        {messageData.map((message) => (
-          <Message key={JSON.stringify(message)} {...message} />
-        ))}
+      <div className='sidebar'>
+        <p className='displayName'>{props.location.state.username}</p>
+        <img src={props.location.state.userURL} />
+        {/* TODO: add log out functionalities */}
+        {/*<button>Log out of GitHub</button>
+        <button>Log out of Anon ID</button>*/}
       </div>
-      <div className='inputArea'>
-        <input type='text' ref={inputMessageRef}></input>
-        <button onClick={handleSendClick}>Send</button>
+      <div className='chatContainer'>
+        <div className='chat' ref={chatRef}>
+          {/* assumes most recent message is at the end of the array */}
+          {messageData.map((message) => (
+            <Message key={JSON.stringify(message)}
+              yourName={props.location.state.username}
+              {...message} />
+          ))}
+        </div>
+        <form className='inputArea' onClick={handleSendClick}>
+          <input type='text' ref={inputMessageRef} placeholder='Send message'></input>
+          <span>|</span>
+          <button type='submit'>Send</button>
+        </form>
       </div>
     </div>
   );
 }
 
 function Message(props) {
+  const className = 'messageContainer' + (props.yourName === props.username ? ' self' : '');
   return (
-    <div className='messageContainer'>
-      <p>{props.timestamp}</p>
+    <div className={className}>
       <img src={props.userURL} />
-      <p>{props.message}</p>
+      <div className='textContainer'>
+        <span>{props.username}</span>
+        <p>{props.message}</p>
+      </div>
+
     </div>
   );
 }
