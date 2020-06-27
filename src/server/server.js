@@ -4,6 +4,8 @@ const app = express();
 const http = require('http').createServer(app);
 
 const githubRouter = require('./github/github');
+const idsRouter = require('./ids/ids');
+const messagesRouter = require('./messages/messages');
 
 // will run on port 3000 for development,
 // PORT env variable will be set and available at deployment
@@ -21,9 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', githubRouter);
-// app.use('/id', // **request for available anon ids goes here**)
+app.use('/id', idsRouter);
 
-// app.get('/messages', //**respond with list of messages (last 20?)**)
+app.use('/messages', messagesRouter);
 
 // serves the index.html file at the root route for initial get request
 app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));

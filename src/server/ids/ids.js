@@ -6,3 +6,7 @@ idsRouter.get('/', idsController.getNewID, (req, res) => {
 });
 
 module.exports = idsRouter;
+
+// keep a list of signed in user hashes
+// clear the list on signout
+// do we have to attach the socket-id to the user hash?
