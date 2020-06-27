@@ -20,8 +20,10 @@ const requestUser = (result) => {
 
   return request
     .get('https://api.github.com/user')
-    .set('User-Agent', 'BBB') // Authorization: token OAUTH-TOKEN
-    .set('Authorization', 'token ' + accessToken); // Authorization: token OAUTH-TOKEN
+    // User-Agent header is required by GitHub OAuth, and value is project name or client_id
+    .set('User-Agent', 'BBB')
+    // Authorization: token OAUTH-TOKEN <- space after token is VERY important
+    .set('Authorization', 'token ' + accessToken); 
 };
 
 module.exports = { requestToken, requestUser };

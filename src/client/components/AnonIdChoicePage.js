@@ -42,7 +42,7 @@ export default function AnonIdChoicePage() {
           {/*<button>Log out of GitHub</button>*/}
           <img src={anonId.userURL} onError={handleRerollClick} />
           < p className='name'>{anonId.username}</p>
-          <div classname='row'>
+          <div className='row'>
             <button onClick={handleRerollClick}>Reroll new ID</button>
             <Link
               className='btn'

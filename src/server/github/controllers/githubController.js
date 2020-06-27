@@ -45,14 +45,8 @@ githubController.callback = (req, res, next) => {
   );
 };
 
-// brurua - $2a$10$OrheWaTptswHFmGZK5AK4OgJRGTIrNX2LRnaAfOB7w.GkjCTQyECy
-// vika - $2a$10$OrheWaTptswHFmGZK5AK4OgJRGTIrNX2LRnaAfOB7w.GkjCTQyECy
-// stiv - $2a$10$OrheWaTptswHFmGZK5AK4OgJRGTIrNX2LRnaAfOB7w.GkjCTQyECy
-// midori - $2a$10$OrheWaTptswHFmGZK5AK4OgJRGTIrNX2LRnaAfOB7w.GkjCTQyECy
-// res.locals.user - vika
-// vika bcrypt 8 - $2a$10$OrheWaTptswHFmGZK5AK4OgJRGTIrNX2LRnaAfOB7w.GkjCTQyECy
 githubController.approveUser = async (req, res, next) => {
-  const githubHandle = res.locals.login; // brurua $2a$10$OrheWaTptswHFmGZK5AK4OgJRGTIrNX2LRnaAfOB7w.GkjCTQyECy
+  const githubHandle = res.locals.login;
   const queryString = `SELECT bcrypt_hash FROM hash_table`;
   db.query(queryString)
     .then((result) => {
@@ -67,17 +61,18 @@ githubController.approveUser = async (req, res, next) => {
           }
         }
       }
+      //TODO: Redirect to /signin route if no match
       next();
     })
     .catch((err) => next(err));
 };
 
 githubController.createJWT = async (req, res, next) => {
-  const SALT_ROUNDS = 10;
-  const githubHandle = res.locals.user;
-  const hashedHandle = await bcrypt.hash(githubHandle, SALT_ROUNDS);
+  // const SALT_ROUNDS = 10;
+  const hashedHandle = res.locals.user;
+  // const hashedHandle = await bcrypt.hash(hashedHandle, SALT_ROUNDS);
 
-  jwt.sign({ username: githubHandle }, JWT_SECRET, (err, token) => {
+  jwt.sign({ username: hashedHandle }, JWT_SECRET, (err, token) => {
     if (err) return next(err);
     res.locals.token = token;
     next();
@@ -95,6 +90,7 @@ githubController.setCookie = (req, res, next) => {
 githubController.cookieVerifier = (req, res, next) => {
   if (!req.cookies.token) return res.redirect('/');
   const token = req.cookies.token;
+  //TODO: change decode to verify
   let decoded = jwt.decode(token);
   const queryString = `SELECT bcrypt_hash FROM hash_table WHERE bcrypt_hash = '${decoded.username}'`;
   db.query(queryString)
