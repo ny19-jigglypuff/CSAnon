@@ -1,28 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AnonIdChoicePage from './AnonIdChoicePage';
 import MainChat from './MainChat';
 
 //loggedIn = is there access token in browser
 //if loggedIn
-  // render AnonChoiceIdPage component
+// render AnonChoiceIdPage component
 //if not loggedIn
-  // redirect to /signin
-
-
+// redirect to /signin
 
 export default function App() {
   const loggedIn = true; //TODO: check if jwt cookie exists or not
   console.log('App.js: theoretically checking cookie');
   return (
     <BrowserRouter>
+      <a href='/auth/user'>Check GITHUB</a>
       <Switch>
         {/* csanon.com */}
-        <Route exact path="/">
-          {loggedIn ? <AnonIdChoicePage /> : <Redirect to="/signin" />}
+        <Route exact path='/'>
+          {loggedIn ? <AnonIdChoicePage /> : <Redirect to='/signin' />}
         </Route>
         {/* csanon.com/signin */}
-        <Route path='/signin'>
+        <Route exact path='/signin'>
           {/* show github oauth button */}
           {/* onclick, GET request on /auth endpoint to get auth URL */}
           {/* user leaves page, goes to github to sign in */}
@@ -32,9 +31,8 @@ export default function App() {
           {/* if not approved CS user -> server should send back some error */}
         </Route>
         {/* csanon.com/chat */}
-        <Route path='/chat' render={(props) => <MainChat {...props} />}>
-        </Route>
+        <Route path='/chat' render={(props) => <MainChat {...props} />}></Route>
       </Switch>
     </BrowserRouter>
-  )
+  );
 }

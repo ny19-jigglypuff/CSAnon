@@ -2,11 +2,12 @@ const githubController = {};
 const dotenv = require('dotenv').config();
 const request = require('superagent');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const { requestToken, requestUser } = require('./requests');
 
 // TODO: Get the database connection
-const db = {}; //require('./somthing/something')
+const db = require('../../models/elephantsql'); //require('./somthing/something')
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -42,9 +43,9 @@ githubController.callback = (req, res, next) => {
   );
 };
 
-githubController.approveUser = (req, req, next) => {
+githubController.approveUser = (req, res, next) => {
   const githubHandle = res.locals.login;
-  const queryString = `SELECT login FROM whitelist WHERE login=${githubHandle}`;
+  const queryString = `SELECT github_handle FROM whitelist WHERE github_handle = '${githubHandle}'`;
   db.query(queryString)
     .then((result) => {
       if (!result.rows.length) {
@@ -57,9 +58,12 @@ githubController.approveUser = (req, req, next) => {
     .catch((err) => next(err));
 };
 
-githubController.createJWT = (req, res, next) => {
+githubController.createJWT = async (req, res, next) => {
+  const SALT_ROUNDS = 10;
   const githubHandle = res.locals.user;
-  jwt.sign({ username: githubHandle }, JWT_SECRET, (err, token) => {
+  const hashedHandle = await bcrypt.hash(githubHandle, SALT_ROUNDS);
+
+  jwt.sign({ username: hashedHandle }, JWT_SECRET, (err, token) => {
     if (err) return next(err);
     res.locals.token = token;
     next();

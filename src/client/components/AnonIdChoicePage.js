@@ -44,5 +44,20 @@ export default function AnonIdChoicePage() {
         </>
       }
     </div>
-  )
+  );
 }
+
+/*
+
+Receive from '/id/ endpoint:
+
+userID = {
+  username: String,
+  userURL: String,
+}
+
+**keep username in session storage**
+
+on go to chat, submit username to '/id/pick/' (will register in redis)
+
+*/

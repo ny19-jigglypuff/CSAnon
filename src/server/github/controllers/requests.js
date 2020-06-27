@@ -1,5 +1,8 @@
 const request = require('superagent');
 
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+
 const requestToken = (code) => {
   return request
     .post('https://github.com/login/oauth/access_token')
