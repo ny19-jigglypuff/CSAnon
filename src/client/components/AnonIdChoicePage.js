@@ -1,45 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import SocketContext from '../context/SocketContext';
 
 export default function AnonIdChoicePage() {
   const [anonId, setAnonId] = useState({
     username: '',
-    userURL: '', //TODO: make sure these are the same keys as in the /id res
+    userURL: '',
   })
   const [isLoading, setIsLoading] = useState(true);
+  const socket = useContext(SocketContext);
 
   const handleRerollClick = () => {
     setIsLoading(true);
-    getNewId();
+  }
+
+  const handleGoToChatClick = () => {
+    socket.emit('signin', { username: anonId.username });
   }
 
   const getNewId = () => {
-    //TODO: test this endpoint once middleware is set up
+    console.log('getNewId running');
     fetch('/id')
       .then(res => res.json())
       .then(result => {
-        //TODO: we are assuming result has this structure: {username, userURL}
-        setAnonId(result);
+        console.log(result)
         setIsLoading(false);
+        setAnonId(result);
       })
   }
 
   //on initial render, get an ID asynchronously
-  getNewId();
+  if (isLoading) { getNewId(); }
 
   return (
     <div className='mainContainer anonChoice'>
-      {isLoading 
-      ? <p>Loading...</p> 
-      :
+      {isLoading
+        ? <p>Loading...</p>
+        :
         <>
           {/* TODO: add log out functionality */}
           <button>Log out of GitHub</button>
-          <img src={anonId.url} />
-          <p className='name'>{anonId.name}</p>
+          <img src={anonId.userURL} />
+          <p className='name'>{anonId.username}</p>
           <button onClick={handleRerollClick}>Reroll new ID</button>
-          <Link to={{path: '/chat', state: anonId}}>
-            <button>Go to chat</button>
+          <Link
+            className='btn'
+            to={{ pathname: '/chat', state: anonId }}
+            onClick={handleGoToChatClick}>
+            Go to chat
           </Link>
         </>
       }

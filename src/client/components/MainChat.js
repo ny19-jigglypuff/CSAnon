@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useRef, useContext } from 'react';
+import SocketContext from '../context/SocketContext';
 
 export default function MainChat(props) {
   const [messageData, setMessageData] = useState([]);
-  const socket = io();
   const inputMessageRef = useRef(null);
+  const socket = useContext(SocketContext);
 
   const handleSendClick = () => {
     const data = {
@@ -23,11 +23,13 @@ export default function MainChat(props) {
   });
 
   //TODO: add function for request more messages on scroll up
-  fetch('/messages')
+  if (messageData.length === 0) {
+    fetch('/messages/all')
     .then((res) => res.json())
     .then((res) => {
       setMessageData(res);
     });
+  }
 
   return (
     <div className='mainContainer mainChat'>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import io from 'socket.io-client';
+import SocketContext from '../context/SocketContext';
 import AnonIdChoicePage from './AnonIdChoicePage';
 import SignInPage from './SignInPage';
 import MainChat from './MainChat';
@@ -10,29 +12,26 @@ import MainChat from './MainChat';
 //if not loggedIn
 // redirect to /signin
 
+const socket = io();
+
 export default function App() {
   const loggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
   return (
-    <BrowserRouter>
-      <Switch>
-        {/* csanon.com */}
-        <Route exact path='/'>
-          {loggedIn ? <AnonIdChoicePage /> : <Redirect to='/signin' />}
-        </Route>
-        {/* csanon.com/signin */}
-        <Route exact path='/signin'>
-          <SignInPage />
-          {/* show github oauth button */}
-          {/* onclick, GET request on /auth endpoint to get auth URL */}
-          {/* user leaves page, goes to github to sign in */}
-          {/* successful signin -> goes back to server */}
-          {/* backend will redirect the user to the front end, with github username and JWT cookie*/}
-          {/* if approved CS user, backend will redirect the user to the front end on '/', with JWT cookie */}
-          {/* if not approved CS user -> server should send back some error */}
-        </Route>
-        {/* csanon.com/chat */}
-        <Route path='/chat' render={(props) => <MainChat {...props} />}></Route>
-      </Switch>
-    </BrowserRouter>
+    <SocketContext.Provider value={socket}>
+      <BrowserRouter>
+        <Switch>
+          {/* csanon.com */}
+          <Route exact path='/'>
+            {loggedIn ? <AnonIdChoicePage /> : <Redirect to='/signin' />}
+          </Route>
+          {/* csanon.com/signin */}
+          <Route exact path='/signin'>
+            <SignInPage />
+          </Route>
+          {/* csanon.com/chat */}
+          <Route path='/chat' render={(props) => <MainChat {...props} />}></Route>
+        </Switch>
+      </BrowserRouter>
+    </SocketContext.Provider>
   );
 }
