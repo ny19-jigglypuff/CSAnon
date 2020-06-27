@@ -1,7 +1,7 @@
 const { getIDAndPictureByUsername, saveMessageToDB } = require('../utils/dbUtils');
 const moment = require('moment');
 const db = require('../models/elephantsql');
-const redis = require('../redis/redis');
+const redis = require('../redis/redis')();
 moment().format();
 
 module.exports = (http) => {

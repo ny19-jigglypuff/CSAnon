@@ -1,0 +1,17 @@
+@use 'variables' as *; //this is only supported by Dart SASS, so must use sass npm package instead of node-sass
+//node-sass uses LibSass
+
+body {
+  margin: 0;
+  font-family: $font-family;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signInPage {
+
+}
