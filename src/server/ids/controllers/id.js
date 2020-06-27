@@ -1,4 +1,4 @@
-const redis = require('../../redis/redis')();
+const redis = require('../../redis/redis');
 const db = require('../../models/elephantsql');
 
 const idsController = {};

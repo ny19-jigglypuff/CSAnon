@@ -1,7 +1,7 @@
 const { getIDAndPictureByUsername, saveMessageToDB } = require('../utils/dbUtils');
 const moment = require('moment');
 const db = require('../models/elephantsql');
-const redis = require('../redis/redis')();
+const redis = require('../redis/redis');
 moment().format();
 
 module.exports = (http) => {
@@ -14,7 +14,6 @@ module.exports = (http) => {
     //       1. save the message to database
     //       2. forward the message to all connected users
     socket.on('message', async ({ message, username }) => {
-      if (!message.length) message = 'has nothing much interesting to say';
       const { user_id, userURL } = await getIDAndPictureByUsername(username);
       const timestamp = moment();
       const newMessage = { message: message, username, userURL, timestamp };
@@ -34,10 +33,11 @@ module.exports = (http) => {
 
     // TODO: on disconnect, should free the user id from the redis database
     socket.on('disconnect', () => {
+      console.log('a user disconnected');
       redis.get(socket.id.toString(), (err, username) => {
         if (err) return console.error(err);
-        if (!username) return;
         console.log(username, 'disconnected');
+        if (!username) return;
         redis.del(socket.id.toString());
         redis.del(username);
       });

@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // requires a locally running redis instance
 // install at https://redis.io/topics/quickstart
-const redis = require('./redis/redis')();
+const redis = require('./redis/redis');
 
 // starts a socket.io server, wrapped around the server
 // listening on PORT
@@ -28,10 +28,10 @@ app.use(cookieParser()) // we need to add this line to have a chance to read the
 
 app.use('/auth', githubRouter);
 app.use('/id', idsRouter);
-
 app.use('/messages', messagesRouter);
 
 // serves the index.html file at the root route for initial get request
+// TODO: add cookieVerifier in front of /chat
 app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
 
 http.listen(PORT, () => console.log(`listening on port ${PORT}`));

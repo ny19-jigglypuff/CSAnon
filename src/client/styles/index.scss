@@ -18,7 +18,7 @@ body {
   background-color: $blue;
   text-decoration: none;
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: $border-radius;
   border: none;
   font-size: 1rem;
 }
@@ -84,14 +84,17 @@ body {
           max-width: 80%;
         }
         p {
+          position: relative;
           margin: 0;
           background-color: $blue;
-          border-radius: 4px;
+          border-radius: $border-radius;
           padding: 0.5rem;
           box-sizing: border-box;
           color: white;
           overflow-wrap: break-word;
           max-width: 50vw;
+          font-size: 0.9rem;
+          box-shadow: 0 1px 6px 2px rgba(54, 62, 70, 0.5), 0 1px 1px 1px rgba(54, 62, 70, 0.7);
         }
         span {
           margin-bottom: 5px;
@@ -122,7 +125,7 @@ body {
       box-sizing: border-box;
       background-color: $light-grey;
       margin: 1rem;
-      border-radius: 4px;
+      border-radius: $border-radius;
       color: $very-light-grey;
 
       input {
@@ -142,6 +145,7 @@ body {
         background-color: transparent;
         border: none;
         color: $very-light-grey;
+        padding: 0 10px;
       }
     }
 

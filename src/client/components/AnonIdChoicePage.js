@@ -3,14 +3,21 @@ import { Link } from 'react-router-dom';
 import SocketContext from '../context/SocketContext';
 
 export default function AnonIdChoicePage() {
-  const [anonId, setAnonId] = useState({
-    username: '',
-    userURL: '',
-  })
+  /* 
+    constructor (props) {
+      super(props)
+      this.state = {
+        anonId : {username: ', userURL''},
+        isLoading: true
+      }
+    }
+  */
+  const [anonId, setAnonId] = useState({username: '', userURL: ''});
   const [isLoading, setIsLoading] = useState(true);
   const socket = useContext(SocketContext);
 
   const handleRerollClick = () => {
+    //this.setState({isLoading: true})
     setIsLoading(true);
   }
 
@@ -19,11 +26,9 @@ export default function AnonIdChoicePage() {
   }
 
   const getNewId = () => {
-    console.log('getNewId running');
     fetch('/id')
       .then(res => res.json())
       .then(result => {
-        console.log(result)
         setIsLoading(false);
         setAnonId(result);
       })
@@ -42,7 +47,7 @@ export default function AnonIdChoicePage() {
           {/*<button>Log out of GitHub</button>*/}
           <img src={anonId.userURL} onError={handleRerollClick} />
           < p className='name'>{anonId.username}</p>
-          <div classname='row'>
+          <div className='row'>
             <button onClick={handleRerollClick}>Reroll new ID</button>
             <Link
               className='btn'
