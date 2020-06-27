@@ -31,7 +31,7 @@ const matchUsernameToID = async (username) => {
   const queryString = `SELECT user_id FROM users WHERE username = "${username}"`;
   const response = await db.query(queryString);
   if (response.rows.length) {
-    const [userID] = response.rows[0];
+    const { userID } = response.rows[0];
     return userID;
   } else {
     console.error('user id not found when searched by name');
