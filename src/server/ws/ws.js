@@ -14,15 +14,13 @@ module.exports = (http) => {
     //       1. save the message to database
     //       2. forward the message to all connected users
     socket.on('message', async ({ message, username }) => {
-      console.log(username, message);
+      if (!message.length) message = 'has nothing much interesting to say';
       const { user_id, userURL } = await getIDAndPictureByUsername(username);
       const timestamp = moment();
       const newMessage = { message: message, username, userURL, timestamp };
       const dbMessage = { user_id, message };
       try {
-        console.log('attempting to save message');
         await saveMessageToDB(dbMessage);
-        console.log(newMessage);
         io.emit('newMessage', newMessage);
       } catch (err) {
         console.error(err);
@@ -30,7 +28,6 @@ module.exports = (http) => {
     });
 
     socket.on('signin', ({ username }) => {
-      console.log(username);
       redis.set(socket.id.toString(), username);
       redis.set(username, 'true');
     });
@@ -39,8 +36,7 @@ module.exports = (http) => {
     socket.on('disconnect', () => {
       redis.get(socket.id.toString(), (err, username) => {
         if (err) return console.error(err);
-
-        console.log(socket.id.toString());
+        if (!username) return;
         console.log(username, 'disconnected');
         redis.del(socket.id.toString());
         redis.del(username);
