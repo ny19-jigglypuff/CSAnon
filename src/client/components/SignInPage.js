@@ -18,34 +18,3 @@ export default function SignInPage() {
     </div>
   );
 }
-
-//Authorization popup window code
-//Example from:
-//https://gist.github.com/asith-w/95d7f69e0e957bf72a5703ba45c6a9e8
-function ShowAuthWindow(options) {
-  console.log('ee');
-  options.windowName = 'GitHubOAuth'; // should not include space for IE
-  options.windowOptions = options.windowOptions || 'location=0,status=0,width=800,height=400';
-  options.callback =
-    options.callback ||
-    function () {
-      window.location.reload();
-    };
-  var that = this;
-  console.log(options.path);
-  that._oauthWindow = window.open(options.path, options.windowName, options.windowOptions);
-  that._oauthInterval = window.setInterval(function () {
-    if (that._oauthWindow.closed) {
-      window.clearInterval(that._oauthInterval);
-      options.callback();
-    }
-  }, 1000);
-}
-
-//create new oAuth popup window and monitor it
-ShowAuthWindow({
-  path: '/auth/user',
-  callback: function () {
-    console.log('callback');
-  },
-});
