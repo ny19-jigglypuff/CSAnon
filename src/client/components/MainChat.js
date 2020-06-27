@@ -17,12 +17,10 @@ export default function MainChat(props) {
       inputMessageRef.current.value = '';
       socket.emit('message', data);
     }
-
   };
 
   socket.on('newMessage', (data) => {
     //{username, userURL, timestamp, message}
-    console.log(data);
     const newArr = [...messageData];
     newArr.push(data);
     setMessageData(newArr);
@@ -30,6 +28,7 @@ export default function MainChat(props) {
   });
 
   //TODO: add function for request more messages on scroll up
+  //TODO: not scrolling to bottom on initial load
   if (messageData.length === 0) {
     fetch('/messages/all')
       .then((res) => res.json())
@@ -48,25 +47,21 @@ export default function MainChat(props) {
         {/*<button>Log out of GitHub</button>
         <button>Log out of Anon ID</button>*/}
       </div>
-      {messageData.length !== 0 &&
-        <>
-          <div className='chatContainer'>
-            <div className='chat' ref={chatRef}>
-              {/* assumes most recent message is at the end of the array */}
-              {messageData.map((message) => (
-                <Message key={JSON.stringify(message)}
-                  yourName={props.location.state.username}
-                  {...message} />
-              ))}
-            </div>
-            <form className='inputArea' onClick={handleSendClick}>
-              <input type='text' ref={inputMessageRef} placeholder='Send message'></input>
-              <span>|</span>
-              <button type='submit'>Send</button>
-            </form>
-          </div>
-        </>
-      }
+      <div className='chatContainer'>
+        <div className='chat' ref={chatRef}>
+          {/* assumes most recent message is at the end of the array */}
+          {messageData.map((message) => (
+            <Message key={JSON.stringify(message)}
+              yourName={props.location.state.username}
+              {...message} />
+          ))}
+        </div>
+        <form className='inputArea' onClick={handleSendClick}>
+          <input type='text' ref={inputMessageRef} placeholder='Send message'></input>
+          <span>|</span>
+          <button type='submit'>Send</button>
+        </form>
+      </div>
     </div>
   );
 }

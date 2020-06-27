@@ -12,7 +12,7 @@ export default function SignInPage() {
   return (
     <div className='mainContainer signInPage'>
       <h1>ComplainSmith Anonymous</h1>
-      <a href='/auth/user' className='githubBtn'>
+      <a href='/auth/user' className='btn githubBtn'>
         Sign in to GITHUB
       </a>
     </div>
