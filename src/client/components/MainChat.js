@@ -11,6 +11,7 @@ export default function MainChat(props) {
       message: inputMessageRef.current.value,
       username: props.username,
     };
+    inputMessageRef.current.value = '';
     socket.emit('message', data);
   };
 
