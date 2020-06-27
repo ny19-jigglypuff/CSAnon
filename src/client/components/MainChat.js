@@ -9,7 +9,7 @@ export default function MainChat(props) {
   const handleSendClick = () => {
     const data = {
       message: inputMessageRef.current.value,
-      username: props.username,
+      username: props.location.state.username,
     };
     inputMessageRef.current.value = '';
     socket.emit('message', data);
