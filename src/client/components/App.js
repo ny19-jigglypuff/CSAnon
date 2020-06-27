@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import AnonIdChoicePage from './AnonIdChoicePage';
+import SignInPage from './SignInPage';
 import MainChat from './MainChat';
 
 //loggedIn = is there access token in browser
@@ -10,11 +11,9 @@ import MainChat from './MainChat';
 // redirect to /signin
 
 export default function App() {
-  const loggedIn = true; //TODO: check if jwt cookie exists or not
-  console.log('App.js: theoretically checking cookie');
+  const loggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
   return (
     <BrowserRouter>
-      <a href='/auth/user'>Check GITHUB</a>
       <Switch>
         {/* csanon.com */}
         <Route exact path='/'>
@@ -22,6 +21,7 @@ export default function App() {
         </Route>
         {/* csanon.com/signin */}
         <Route exact path='/signin'>
+          <SignInPage />
           {/* show github oauth button */}
           {/* onclick, GET request on /auth endpoint to get auth URL */}
           {/* user leaves page, goes to github to sign in */}
