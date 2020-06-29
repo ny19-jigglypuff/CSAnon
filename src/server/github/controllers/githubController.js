@@ -61,6 +61,7 @@ githubController.approveUser = async (req, res, next) => {
         }
       }
       //TODO: Redirect to /signin route if no match
+      res.locals.user = githubHandle
       next();
     })
     .catch((err) => next(err));
