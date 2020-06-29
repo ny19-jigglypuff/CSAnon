@@ -36,6 +36,7 @@ app.use('/messages', messagesRouter);
 
 // serves the index.html file at the root route to allow React Router to
 // handle all routes other than the ones defined above
-app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
+app.get('/bundle.js', (req, res) => res.sendFile(path.resolve(__dirname, '../../dist/bundle.js')));
+app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../../dist/index.html')));
 
 http.listen(PORT, () => console.log(`listening on port ${PORT}`));
