@@ -1,5 +1,5 @@
 {
-  "name": "ComplainSmith",
+  "name": "CSAnon",
   "version": "1.0.0",
   "description": "An anonymous board to ask for help, coding or otherwise.",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ny19-jigglypuff/ComplainSmith.git"
+    "url": "git+https://github.com/ny19-jigglypuff/CSAnon.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ny19-jigglypuff/ComplainSmith/issues"
+    "url": "https://github.com/ny19-jigglypuff/CSAnon/issues"
   },
-  "homepage": "https://github.com/ny19-jigglypuff/ComplainSmith#readme",
+  "homepage": "https://github.com/ny19-jigglypuff/CSAnon#readme",
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@babel/preset-env": "^7.10.3",
