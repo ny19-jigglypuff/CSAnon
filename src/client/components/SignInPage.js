@@ -11,7 +11,7 @@ import React from 'react';
 export default function SignInPage() {
   return (
     <div className='mainContainer signInPage'>
-      <h1>ComplainSmith Anonymous</h1>
+      <h1>CS Anonymous</h1>
       <a href='/auth/user' className='btn githubBtn'>
         Sign in to GITHUB
       </a>

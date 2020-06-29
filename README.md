@@ -1,4 +1,4 @@
-# ComplainSmith
+# CSAnon
 An anonymous board to ask for help, coding or otherwise.
 
 WELCOME, ITERATORS!
