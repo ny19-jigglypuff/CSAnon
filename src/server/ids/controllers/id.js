@@ -5,7 +5,7 @@ const idsController = {};
 
 const NUM_OF_POKEMON = 964; // change to fit the number of available pokemon we have
 
-const pickRandomNumber = () => {
+const pickRandomPokemonNumber = () => {
   return Math.floor(Math.random() * NUM_OF_POKEMON);
 };
 
@@ -16,6 +16,7 @@ const userIDIsTaken = (number) => {
   });
 };
 
+// finds the pokemon name and pictureURL attached to the random user_id
 const getNameAndPicture = async (id) => {
   const queryString = `SELECT username, pic_url FROM users WHERE user_id = ${id}`;
   const result = await db.query(queryString);
@@ -39,26 +40,13 @@ const matchUsernameToID = async (username) => {
 };
 
 idsController.getNewID = async (req, res, next) => {
-  const randomUserID = pickRandomNumber();
+  const randomUserID = pickRandomPokemonNumber();
   while (userIDIsTaken(randomUserID)) {
-    randomUserID = pickRandomNumber();
+    randomUserID = pickRandomPokemonNumber();
   }
   const userObject = await getNameAndPicture(randomUserID);
   res.locals.availableID = userObject;
   next();
-};
-
-idsController.setPickedID = async (req, res, next) => {
-  const { username } = req.body;
-  const userID = matchUsernameToID(username);
-  redis.set(userID, true);
-
-  next();
-};
-
-idsController.clearID = (username) => {
-  const userID = matchUsernameToID(username);
-  redis.del(userID);
 };
 
 module.exports = idsController;
