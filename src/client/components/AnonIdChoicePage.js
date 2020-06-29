@@ -29,6 +29,7 @@ export default function AnonIdChoicePage() {
     fetch('/id')
       .then(res => res.json())
       .then(result => {
+        console.log(result);
         setIsLoading(false);
         setAnonId(result);
       })
