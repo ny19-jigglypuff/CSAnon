@@ -1,8 +1,8 @@
 const messagesRouter = require('express').Router();
 const messagesController = require('./controller/messagesController');
-const { cookieVerifier } = require('../github/controllers/githubController');
+// const { cookieVerifier } = require('../github/controllers/githubController');
 
-messagesRouter.get('/all', cookieVerifier, messagesController.getAll, (req, res) => {
+messagesRouter.get('/all', messagesController.getAll, (req, res) => {
   const messages = res.locals.messages;
   res.status(200).json(messages);
 });

@@ -55,7 +55,7 @@ githubController.approveUser = async (req, res, next) => {
   //         // check if the plaintext github handle matches the hashed_handle
   //         let match = bcrypt.compare(githubHandle, result.rows[i].bcrypt_hash);
   //         if (match) {
-  //           res.locals.user = result.rows[i].bcrypt_hash;
+  //           // res.locals.user = result.rows[i].bcrypt_hash;
   //           return next();
   //         }
   //       }
@@ -64,8 +64,8 @@ githubController.approveUser = async (req, res, next) => {
   //     next();
   //   })
   //   .catch((err) => next(err));
-  res.locals.use = githubHandle;
-  next();
+  res.locals.user = githubHandle;
+  next()
 };
 
 githubController.createJWT = async (req, res, next) => {
