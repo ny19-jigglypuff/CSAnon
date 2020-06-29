@@ -44,26 +44,28 @@ githubController.callback = (req, res, next) => {
 githubController.approveUser = async (req, res, next) => {
   const githubHandle = res.locals.login;
   // get all rows of the hash table
-  const queryString = `SELECT bcrypt_hash FROM hash_table`;
-  db.query(queryString)
-    .then((result) => {
-      if (!result.rows.length) {
-        res.status(403).json({ error: { message: 'Hash table error' } });
-      } else {
-        // for each item in the hash_table
-        for (let i = 0; i < result.rows.length; i++) {
-          // check if the plaintext github handle matches the hashed_handle
-          let match = bcrypt.compare(githubHandle, result.rows[i].bcrypt_hash);
-          if (match) {
-            res.locals.user = result.rows[i].bcrypt_hash;
-            return next();
-          }
-        }
-      }
-      //TODO: Redirect to /signin route if no match
-      next();
-    })
-    .catch((err) => next(err));
+  // const queryString = `SELECT bcrypt_hash FROM hash_table`;
+  // db.query(queryString)
+  //   .then((result) => {
+  //     if (!result.rows.length) {
+  //       res.status(403).json({ error: { message: 'Hash table error' } });
+  //     } else {
+  //       // for each item in the hash_table
+  //       for (let i = 0; i < result.rows.length; i++) {
+  //         // check if the plaintext github handle matches the hashed_handle
+  //         let match = bcrypt.compare(githubHandle, result.rows[i].bcrypt_hash);
+  //         if (match) {
+  //           // res.locals.user = result.rows[i].bcrypt_hash;
+  //           return next();
+  //         }
+  //       }
+  //     }
+  //     //TODO: Redirect to /signin route if no match
+  //     next();
+  //   })
+  //   .catch((err) => next(err));
+  res.locals.user = githubHandle;
+  next()
 };
 
 githubController.createJWT = async (req, res, next) => {

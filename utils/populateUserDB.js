@@ -4,11 +4,11 @@ const { Pool } = require('pg');
 // was causing authentication errors with the connectionString for some reason
 // needed the information added explicitly
 const db = new Pool({
-  // user: <db username>,
-  // password: <db password>,
-  // host: <db host>,
-  // database: <database name>,
-  // port: <port>,
+  user: 'sxxfhsmp',
+  password: '24uEPIYvk4WgTARJKU3CWztooRTxxlNV',
+  host: 'ruby.db.elephantsql.com',
+  database: 'sxxfhsmp',
+  port: 5432,
 });
 
 const baseUrl = 'https://pokeapi.co/api/v2/';
