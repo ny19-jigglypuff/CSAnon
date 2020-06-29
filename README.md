@@ -11,13 +11,15 @@ In order to work on this project, you're going to need a few things:
 
 3. A .env file on the root directory, which has the following:
 
-DB_URL=postgres:<your postgres instance>
+DB_URL=postgres:\<your postgres instance>
 
-CLIENT_ID=<the client ID for your github Oauth>
+CLIENT_ID=\<the client ID for your github Oauth>
 
-CLIENT_SECRET=<the client secret for your github Oauth>
+CLIENT_SECRET=\<the client secret for your github Oauth>
 
-JWT_SECRET=<A random string of your choosing>
+JWT_SECRET=\<A random string of your choosing>
+
+PROJECT_NAME=\<your github project name>
 
 4. On your github Oauth, set the redirect url to localhost:8080/auth/callback
 
