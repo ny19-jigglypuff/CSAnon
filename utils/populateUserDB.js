@@ -1,14 +1,15 @@
 const request = require('superagent');
 const { Pool } = require('pg');
+//const db = require('../src/server/models/elephantsql.js');
 
 // was causing authentication errors with the connectionString for some reason
 // needed the information added explicitly
 const db = new Pool({
-  // user: <db username>,
-  // password: <db password>,
-  // host: <db host>,
-  // database: <database name>,
-  // port: <port>,
+  user: 'sxxfhsmp',
+  password: '24uEPIYvk4WgTARJKU3CWztooRTxxlNV',
+  host: 'ruby.db.elephantsql.com',
+  database: 'sxxfhsmp',
+  port: 5432,
 });
 
 const baseUrl = 'https://pokeapi.co/api/v2/';
@@ -33,7 +34,7 @@ request
     for (let i = 0; i < pokemonList.length; i++) {
       if (i % 25 === 0) console.log(stars += "*")
       const { sprite, name } = pokemonList[i];
-      const queryString = `UPDATE users SET pic_url = '${sprite}', username = '${name}' WHERE username = '${name}';`;
+      const queryString = `INSERT INTO users (pic_url, username) VALUES ('${sprite}', '${name}')`;
       await db.query(queryString);
     }
     console.log('Pokemon added to database.');
