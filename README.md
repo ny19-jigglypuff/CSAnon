@@ -1,43 +1,48 @@
 # ComplainSmith
 An anonymous board to ask for help, coding or otherwise.
 
---MVP--
-Front End
-    - Login Page / Signed Out Landing Page
-        - Click to log in with GitHub OAuth
-            - Do they give us their handle? (Does github give the username)
-                - Check handle against whitelist (held in backend)
-    - Avatar Login Page / Signed In User Landing Page
-        - User chooses anonymous (name || picture) (from selection, or reroll)
-    - Chat Page
-        - Protected if unauthorized
-        - Shows a history of chat messages
-        - Shows user input area
-        - Shows anonimized users (random name || pokemon pic, new each session)
-        - Include specific logout button (remove the JWT token)
-Back End
-    - Ensure no duplicate names or pictures at any given time || name / picture cooldown
-    - Control current sessions
-    - Users logged in / out as sockets
-    - Pass messages as socket messages
-    - Send new messages to storage (db)
-Database
-    - Current users as name/picture
-    - Whitelist of allowable users
-    - Message history
+WELCOME, ITERATORS!
 
-Schema 
+In order to work on this project, you're going to need a few things:
+
+1. A Postgres server (either local or cloud)
+
+2. A Redis server (we ran a local instance, see https://redis.io/topics/quickstart )
+
+3. A .env file on the root directory, which has the following:
+
+DB_URL=postgres:<your postgres instance>
+
+CLIENT_ID=<the client ID for your github Oauth>
+
+CLIENT_SECRET=<the client secret for your github Oauth>
+
+JWT_SECRET=<A random string of your choosing>
+
+4. On your github Oauth, set the redirect url to localhost:8080/auth/callback
+
+5. Load a csv with the list of allowable usernames, complete logic for the hashAllUsersUtil file.  Run this util to populate your db with the hashed usernames.
+
+6. Run populateUserDB to fill the users table with pokemon names and urls.
+
+
+POSTGRES SERVER:
+
+Schemas:
 
 
 MESSAGE:
 
 --------------------------------------------
+
 PIC                              TIMESTAMP
+
 USERNAME                         MESSAGE
+
 --------------------------------------------
 
-TABLE whitelist
-    COLUMN github_handle varchar
+TABLE hash_list
+    COLUMN bcrypt_hash varchar
 
 TABLE messages
     COLUMN id int PRIMARY KEY
@@ -52,21 +57,11 @@ TABLE users
 
 SERVERSIDE:
 
-REDIS (key/value pairs) - Stores current active users (check against when assigning new users)
+REDIS (key/value pairs) - 
+
+Stores the following key / value pairs:
+
+- username : 'true'
+- socketID: username 
 
 
-
---Stretch--
-Front End
-    - Multiple rooms
-    - Dirty word censor? (as an option)
-
-Back End
-
-Databases
-
-Cookie Timeout 
-    - A week? (Can be determined at a later point)
-
-Content moderation
-    - Logging malicious IP addresses / github for blacklist

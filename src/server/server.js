@@ -6,7 +6,7 @@ const http = require('http').createServer(app);
 const githubRouter = require('./github/github');
 const idsRouter = require('./ids/ids');
 const messagesRouter = require('./messages/messages');
-const cookieParser = require('cookie-parser') // npm install cookie-parser
+const cookieParser = require('cookie-parser'); // npm install cookie-parser
 
 // will run on port 3000 for development,
 // PORT env variable will be set and available at deployment
@@ -23,15 +23,19 @@ const io = require('./ws/ws')(http);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(cookieParser()); // we need to add this line to have a chance to read the req.cookis.
 
-app.use(cookieParser()) // we need to add this line to have a chance to read the req.cookis.
-
+// handles github OAuth flow
 app.use('/auth', githubRouter);
+
+// handles the registration of userIDs
 app.use('/id', idsRouter);
+
+// returns the list of messages stored in the message database
 app.use('/messages', messagesRouter);
 
-// serves the index.html file at the root route for initial get request
-// TODO: add cookieVerifier in front of /chat
+// serves the index.html file at the root route to allow React Router to
+// handle all routes other than the ones defined above
 app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../client/index.html')));
 
 http.listen(PORT, () => console.log(`listening on port ${PORT}`));

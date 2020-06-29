@@ -7,20 +7,12 @@ const {
   setCookie,
 } = require('./controllers/githubController');
 
-// we need two routes
-// one that is going to handle redirecting the user to github
+// handles initial redirect of the user to github for authorization
 router.get('/user', redirect);
 
-// one that is going to handle the user coming back from github
-router.get(
-  '/callback',
-  callback,
-  approveUser,
-  createJWT,
-  setCookie,
-  (req, res) => {
-    res.status(200).redirect('/');
-  }
-);
+// handles the user coming back from github
+router.get('/callback', callback, approveUser, createJWT, setCookie, (req, res) => {
+  res.status(200).redirect('/');
+});
 
 module.exports = router;

@@ -1,13 +1,14 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
-const { query } = require('express');
 
+// was causing authentication errors with the connectionString for some reason
+// needed the information added explicitly
 const db = new Pool({
-  user: 'rdijnfia',
-  password: 'kOCId0HmwNJ8mOSTy6gk4Ij8a4nAAFz1',
-  host: 'ruby.db.elephantsql.com',
-  database: 'rdijnfia',
-  port: 5432,
+  // user: <db username>,
+  // password: <db password>,
+  // host: <db host>,
+  // database: <database name>,
+  // port: <port>,
 });
 
 /*
@@ -23,17 +24,10 @@ STEP THREE:
 
 // STEP ONE
 const getAllUsers = async () => {
-  const queryString = `SELECT * FROM whitelist`;
-  const response = await db.query(queryString);
-  if (response.rows.length) {
-    const users = response.rows;
-    return users;
-  } else {
-    console.error('error with select from whitelist');
-  }
+  // This was a connection to a plaintext whitelist
+  // recommend loading and parsing a local csv
 };
 
-// const SECRET_STRING = 'BESIK100%'
 const SALT_ROUNDS = 8;
 
 // STEP TWO
@@ -65,7 +59,7 @@ const allTogether = async () => {
     // hash the username of that github handle
     const hashedUsername = await hashUser(github_handle);
     // take the hashed username, and insert it into the database
-    // call third function
+    // await action in order to slow the db calls and prevent throttling errors
     await insertUserIntoDB(hashedUsername);
     console.log(waiting);
     waiting += '.';
