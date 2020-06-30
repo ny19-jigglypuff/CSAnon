@@ -5,6 +5,7 @@ import SocketContext from '../context/SocketContext';
 import AnonIdChoicePage from './AnonIdChoicePage';
 import SignInPage from './SignInPage';
 import MainChat from './MainChat';
+import UserContext from '../context/UserContext';
 
 //loggedIn = is there access token in browser
 //if loggedIn
@@ -17,6 +18,10 @@ const socket = io();
 export default function App() {
   //Check if cookie called 'token' exists in browser
   const loggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('token='));
+
+  // TEST! wrap BrowserRouter in UserContext Provider ?!
+  // <UserContext.Provider value={}></UserContext.Provider>
+
   return (
     //Provide the Context to the App by wrapping it in a Provider
     //The value prop will be available to all the child Components via the useContext hook

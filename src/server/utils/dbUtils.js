@@ -1,7 +1,7 @@
 const db = require('../models/elephantsql');
 
 const dbUtils = {};
-
+ 
 dbUtils.matchUsernameToID = async (username) => {
   const queryString = `SELECT user_id FROM users WHERE username = '${username}'`;
   const response = await db.query(queryString);

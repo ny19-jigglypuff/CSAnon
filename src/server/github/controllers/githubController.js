@@ -94,6 +94,8 @@ githubController.createJWT = async (req, res, next) => {
 githubController.setCookie = (req, res, next) => {
   const token = res.locals.token;
   res.cookie('token', token);
+  // TEST : set cookie with githubhandle that will expire after the session is over !
+  res.cookie('githubUser', res.locals.user);
   next();
 };
 
