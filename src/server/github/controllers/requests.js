@@ -10,10 +10,10 @@ const requestToken = (code) => {
     .send({
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
-      code: code,
+      code,
     })
     .set('Accept', 'application/json');
-};
+}; 
 
 const requestUser = (result, response) => {
   const { access_token, scope } = result.body;
@@ -35,7 +35,8 @@ const checkMembership = (githubHandle, access_token) => {
   const org = 'CodesmithLLC';
   //   /user/memberships/orgs?state=active
   // /user GET request returns response correctly
-  const route = `/user/orgs`;
+  // const route = `/user/orgs`;
+  const route = `/orgs/${org}/members/${githubHandle}`;
   console.log(baseURL + route);
   return (
     request

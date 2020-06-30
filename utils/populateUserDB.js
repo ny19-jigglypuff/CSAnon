@@ -4,16 +4,30 @@ const { Pool } = require('pg');
 
 // was causing authentication errors with the connectionString for some reason
 // needed the information added explicitly
+const connectionString = 'postgres://sxxfhsmp:24uEPIYvk4WgTARJKU3CWztooRTxxlNV@ruby.db.elephantsql.com:5432/sxxfhsmp';
+
 const db = new Pool({
-  user: 'sxxfhsmp',
-  password: '24uEPIYvk4WgTARJKU3CWztooRTxxlNV',
-  host: 'ruby.db.elephantsql.com',
-  database: 'sxxfhsmp',
-  port: 5432,
+  // user: <db username>,
+  // password: <db password>,
+  // host: <db host>,
+  // database: <database name>,
+  // port: <port>,
+
+  // user: 'rdijnfia',
+  // password: 'kOCId0HmwNJ8mOSTy6gk4Ij8a4nAAFz1',
+  // host: 'ruby.db.elephantsql.com',
+  // database: 'rdijnfia',
+  // port: 5432,
+
+  // user: 'sxxfhsmp',
+  // password: '24uEPIYvk4WgTARJKU3CWztooRTxxlNV',
+  // host: 'ruby.db.elephantsql.com',
+  // port: 5432,
+  connectionString: connectionString,
 });
 
 const baseUrl = 'https://pokeapi.co/api/v2/';
-let currentID = 1
+let currentID = 1;
 
 request
   .get(`${baseUrl}pokemon?limit=1000`)
@@ -21,9 +35,9 @@ request
   .then(async (res) => {
     res.body.results.map((pokemon) => {
       // THERE'S A WEIRD JUMP FROM 807 TO 10001
-      if (currentID === 808) currentID = 10001
+      if (currentID === 808) currentID = 10001;
       pokemon.sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentID}.png`;
-      currentID++
+      currentID++;
       return pokemon;
     });
 
