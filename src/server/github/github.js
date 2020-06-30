@@ -6,7 +6,7 @@ const {
   createJWT,
   setCookie,
 } = require('./controllers/githubController');
-
+ 
 // handles initial redirect of the user to github for authorization
 router.get('/user', redirect);
 
