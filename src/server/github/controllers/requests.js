@@ -13,7 +13,7 @@ const requestToken = (code) => {
       code,
     })
     .set('Accept', 'application/json');
-};
+}; 
 
 const requestUser = (result, response) => {
   const { access_token, scope } = result.body;

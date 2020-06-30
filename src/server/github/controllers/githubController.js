@@ -19,7 +19,7 @@ githubController.redirect = (req, res, next) => {
   // const scope = 'user';
   const scope = "read:org";
   res.redirect(`${baseURL}?client_id=${CLIENT_ID}&scope=${scope}`);
-};
+}; 
 
 githubController.callback = (req, res, next) => {
   // github returns a code in a query param
@@ -52,6 +52,8 @@ githubController.approveUser = async (req, res, next) => {
   checkMembership(githubHandle, res.locals.access_token)
     .then((res) => {
       console.log("approveUser res body", res.body);
+      // should give 204 status in response
+      // if yes - good to go, allowed to access chat (member of the organization)
       console.log(res.status);
     })
     .catch((err) => {

@@ -6,7 +6,7 @@ const {
   createJWT,
   setCookie,
 } = require('./controllers/githubController');
-
+ 
 // handles initial redirect of the user to github for authorization
 router.get('/user', redirect);
 
@@ -14,7 +14,7 @@ router.get('/user', redirect);
 // router.get('/callback', callback, approveUser, createJWT, setCookie, (req, res) => {
 //   res.status(200).redirect('/');
 // });
-router.get('/callback', callback, createJWT, setCookie, (req, res) => {
+router.get('/callback', callback, approveUser, createJWT, setCookie, (req, res) => {
   res.status(200).redirect('/');
 });
 
