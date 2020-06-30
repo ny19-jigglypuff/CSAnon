@@ -15,8 +15,11 @@ const requestToken = (code) => {
     .set('Accept', 'application/json');
 };
 
-const requestUser = (result) => {
-  const { access_token } = result.body;
+const requestUser = (result, response) => {
+  const { access_token, scope } = result.body;
+  console.log('user scope', scope);
+  // console.log('access token:', access_token);
+  response.locals.access_token = access_token;
   return (
     request
       .get('https://api.github.com/user')
@@ -27,4 +30,21 @@ const requestUser = (result) => {
   );
 };
 
-module.exports = { requestToken, requestUser };
+const checkMembership = (githubHandle, access_token) => {
+  const baseURL = 'https://api.github.com';
+  const org = 'CodesmithLLC';
+  //   /user/memberships/orgs?state=active
+  // /user GET request returns response correctly
+  const route = `/user/orgs`;
+  console.log(baseURL + route);
+  return (
+    request
+      .get(baseURL + route)
+      // User-Agent header is required by GitHub OAuth, and value is project name or client_id
+      .set('User-Agent', PROJECT_NAME)
+      // Authorization: token OAUTH-TOKEN <- space after token is VERY important
+      .set('Authorization', 'token ' + access_token)
+  );
+};
+
+module.exports = { requestToken, requestUser, checkMembership };
