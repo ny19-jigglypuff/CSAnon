@@ -5,7 +5,7 @@ const messagesController = {};
 const getAllMessages = async () => {
   // selects the 100 most recent message and created at keys from the database,
   // along with the username and pic_url of that message
-  const queryString = `SELECT messages.message, messages.created_at, users.username, users.pic_url FROM messages INNER JOIN users ON messages.user_id = users.user_id ORDER BY messages.created_at DESC LIMIT 100;`;
+  const queryString = `SELECT messages.message, messages.timestamp, users.username, users.pic_url FROM messages INNER JOIN users ON messages.user_id = users.user_id ORDER BY messages.timestamp DESC LIMIT 100;`;
   const results = await db.query(queryString);
   if (results.rows.length) {
     const messages = results.rows
