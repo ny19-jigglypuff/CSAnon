@@ -1,5 +1,8 @@
 const path = require('path');
 const express = require('express');
+// TEST !
+const cookieSession = require('cookie-session');
+
 const app = express();
 const http = require('http').createServer(app);
 
@@ -23,7 +26,23 @@ const io = require('./ws/ws')(http);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cookieParser()); // we need to add this line to have a chance to read the req.cookis.
+app.use(cookieParser()); // we need to add this line to have a chance to read the req.cookies.
+
+
+// ***** TEST *****
+// app.set('trust proxy', 1); // trust first proxy
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1'],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  sameSite: true
+}));
+
+// ********************
+
 
 // handles github OAuth flow
 app.use('/auth', githubRouter);

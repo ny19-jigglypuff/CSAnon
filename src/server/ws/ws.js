@@ -54,7 +54,7 @@ module.exports = (http) => {
 message: String,
 username:  String,
 userURL:  String,
-timestamp: String 
+timestamp: String
 }
 */
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import SocketContext from '../context/SocketContext';
-
+ 
 export default function MainChat(props) {
   const [messageData, setMessageData] = useState([]);
   const inputMessageRef = useRef(null);
@@ -75,7 +75,6 @@ function Message(props) {
         <span>{props.username}</span>
         <p>{props.message}</p>
       </div>
-
     </div>
   );
 }

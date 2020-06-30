@@ -4,7 +4,7 @@
   "description": "An anonymous board to ask for help, coding or otherwise.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server/server.js",
+    "start": "nodemon src/server/server.js",
     "dev": "concurrently \"nodemon src/server/server.js\" \"webpack-dev-server --open\"",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -38,6 +38,7 @@
     "bcrypt": "^5.0.0",
     "concurrently": "^5.2.0",
     "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
