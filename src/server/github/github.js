@@ -14,7 +14,7 @@ router.get('/user', redirect);
 // router.get('/callback', callback, approveUser, createJWT, setCookie, (req, res) => {
 //   res.status(200).redirect('/');
 // });
-router.get('/callback', callback, createJWT, setCookie, (req, res) => {
+router.get('/callback', callback, approveUser, createJWT, setCookie, (req, res) => {
   res.status(200).redirect('/');
 });
 
