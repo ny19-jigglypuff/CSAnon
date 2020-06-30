@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const githubController = {};
 
-const { requestToken, requestUser } = require('./requests');
+const { requestToken, requestUser, checkMembership } = require('./requests');
 
 const db = require('../../models/elephantsql');
 
@@ -14,27 +14,33 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 githubController.redirect = (req, res, next) => {
   const baseURL = 'https://github.com/login/oauth/authorize';
-
-  res.redirect(`${baseURL}?client_id=${CLIENT_ID}`);
+  // VERY IMPORTANT TO DEFINE SCOPES!!!!!!!!!
+  // https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
+  const scope = 'user';
+  res.redirect(`${baseURL}?client_id=${CLIENT_ID}&scope=${scope}`);
 };
 
 githubController.callback = (req, res, next) => {
   // github returns a code in a query param
   const { code } = req.query;
+  console.log('code', code);
   if (!code) {
     return next({
       error: { code: 403, message: 'User Not Authorized By Github' },
     });
   }
 
-  requestToken(code).then((token) =>
-    requestUser(token)
+  requestToken(code)
+    .then((result) =>
+    requestUser(result, res)
       .then(({ body }) => {
-        res.locals.login = body.login;
+        // console.log(body);
+         res.locals.login = body.login;
+        // console.log(res.locals)
         return next();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.status);
         console.log(err.message);
         return next(err);
       })
@@ -43,6 +49,14 @@ githubController.callback = (req, res, next) => {
 
 githubController.approveUser = async (req, res, next) => {
   const githubHandle = res.locals.login;
+  //checkMembership(githubHandle, res.locals.access_token)
+  //  .then(res => console.log('approveUser res body', res.body))
+  //  .catch((err) => {
+  //    console.log(err.status);
+  //    console.log(err.message);
+  //    return next(err);
+  //  })
+
   // get all rows of the hash table
   // const queryString = `SELECT bcrypt_hash FROM hash_table`;
   // db.query(queryString)
@@ -65,7 +79,7 @@ githubController.approveUser = async (req, res, next) => {
   //   })
   //   .catch((err) => next(err));
   res.locals.user = githubHandle;
-  next()
+  next();
 };
 
 githubController.createJWT = async (req, res, next) => {
