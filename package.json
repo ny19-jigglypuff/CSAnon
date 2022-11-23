@@ -48,7 +48,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "redis": "^3.0.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "socket.io-client": "^2.3.0",
     "superagent": "^5.2.2"
   }
